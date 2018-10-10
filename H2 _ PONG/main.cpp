@@ -22,8 +22,6 @@
 
 SDL_Window* displayWindow;
 
-GLuint LoadTexture(const char *filePath);
-
 int main(int argc, char *argv[])
 {
     SDL_Init(SDL_INIT_VIDEO);
@@ -31,9 +29,9 @@ int main(int argc, char *argv[])
     SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
     SDL_GL_MakeCurrent(displayWindow, context);
     
-#ifdef _WINDOWS
-    glewInit();
-#endif
+    #ifdef _WINDOWS
+        glewInit();
+    #endif
 
     //SETUP
     glViewport(0, 0, 640, 360);
@@ -91,6 +89,16 @@ int main(int argc, char *argv[])
     float timeElapsed;
     float lastFrameTicks = 0;
     
+    
+    float rightColorR = 0.0f;
+    float rightColorG = 0.8f;
+    float rightColorB = 0.2f;
+    
+    float leftColorR = 0.0f;
+    float leftColorG = 0.8f;
+    float leftColorB = 0.2f;
+
+    
     //GAME LOOP
     SDL_Event event;
     bool done = false;
@@ -113,7 +121,7 @@ int main(int argc, char *argv[])
         const Uint8 *keys = SDL_GetKeyboardState(NULL);
         
 //LEFT PADDLE
-        program.SetColor(0.2f, 0.8f, 0.4f, 1.0f);
+        program.SetColor(leftColorR, leftColorG, leftColorB, 1.0f);
         
         float leftPaddlePosY = leftPaddleY + (paddleHeight/2);
         float leftPaddleNegY = leftPaddleY - (paddleHeight/2);
@@ -140,7 +148,7 @@ int main(int argc, char *argv[])
         
         
 //RIGHT PADDLE
-        program.SetColor(0.2f, 0.8f, 0.4f, 1.0f);
+        program.SetColor(rightColorR, rightColorG, rightColorB, 1.0f);
         
         float rightPaddlePosY = rightPaddleY + (paddleHeight/2);
         float rightPaddleNegY = rightPaddleY - (paddleHeight/2);
@@ -185,15 +193,20 @@ int main(int argc, char *argv[])
         glEnableVertexAttribArray(program.positionAttribute);
         
         //Keep score & bring the ball back if it leaves the screen
-        // right wall, left side score
+        // right wall, left side score (P1)
         if ( ballX + ballWidth > 2.0 ) {
             ballX = 0.0f;
             ballY = 0.0f;
             scorePlayer1++;
             std::cout << "PLAYER 1 SCORED!" << "\n" <<  "________________" << "\n" << "  SCOREBOARD" <<  "\n" <<"\n" << "PLAYER 1: " << scorePlayer1 <<  "\n" << "PLAYER 2: " << scorePlayer2 << "\n" << "\n" ;
+       
+            //reset color, break streak
+            rightColorR = 0.0;
+            rightColorB = 0.2;
+        
         }
         
-        //left wall, leftside score
+        //left wall, right side score (P2)
         if ( ballX - ballWidth < -2.0 ) {
             ballX = 0.0f;
             ballY = 0.0f;
@@ -201,8 +214,9 @@ int main(int argc, char *argv[])
             
             std::cout << "PLAYER 2 SCORED!" << "\n" <<  "________________" << "\n" << "  SCOREBOARD" <<  "\n" << "\n" << "PLAYER 1: " << scorePlayer1 <<  "\n" << "PLAYER 2: " << scorePlayer2 << "\n" << "\n" ;
             
-            //hold ball at that position for a few screens to indicate begining of new round
-            //sleep(2);
+            //reset color, break streak
+            leftColorR = 0.0f;
+            leftColorB = 0.2f;
         }
         
         
@@ -216,8 +230,9 @@ int main(int argc, char *argv[])
             
             round++;
             
+            
             std::cout << "PLAYER 1 WINS!" << "\n";
-            std::cout << "ROUND " << round << "\n" << "\n";
+            std::cout << "  ROUND " << round << "\n" << "\n";
         }
         
         if (scorePlayer2 == 7 ){
@@ -228,10 +243,10 @@ int main(int argc, char *argv[])
             scorePlayer2 = 0;
             
             std::cout << "PLAYER 2 WINS!" << "\n";
-            std::cout << "ROUND " << round << "\n" << "\n";
+            std::cout << "  ROUND " << round << "\n" << "\n";
         }
         
-
+        
         float  rightDistanceX = abs(rightPaddleX - ballX) - ((ballWidth + paddleWidth)/2);
         float  rightDistanceY = abs(rightPaddleY - ballY) - ((ballHeight + paddleHeight)/2);
         
@@ -246,6 +261,10 @@ int main(int argc, char *argv[])
             if (ballY < rightPaddleY ) {dirY = -1.3;}
             //if it hits the center, hit it back with no y.change
             if (ballY == rightPaddleY) {dirY = 0;}
+            
+            //change color with each save -- streak representation
+            rightColorR += 0.2;
+            if (rightColorR > 1) {rightColorB += 0.1; if (rightColorB > 1) {rightColorR = 0;}if (rightColorR > 1 & rightColorB >1) {rightColorR = 0.0; rightColorB = 0.0;}}
         }
         
         float  leftDistanceX = abs(leftPaddleX - ballX) - ((ballWidth + paddleWidth)/2);
@@ -261,6 +280,10 @@ int main(int argc, char *argv[])
             if (ballY < leftPaddleY ) {dirY = -1.3;}
             //if it hits the center, hit it back with no y.change
             if (ballY == leftPaddleY) {dirY = 0;}
+        
+            //change color with each save -- streak representation
+            leftColorR += 0.2;
+            if (leftColorR > 1) {leftColorB += 0.1; if (leftColorB > 1) {leftColorR = 0;}if (leftColorR > 1 & leftColorB >1) {leftColorR = 0.0; leftColorB = 0.0;}}
         }
         
         //bounce off top & bottom walls
@@ -283,26 +306,3 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-
-// texture function, returns textureID
-GLuint LoadTexture(const char *filePath) {
-    
-    int w,h,comp;
-    
-    unsigned char* image = stbi_load(filePath, &w, &h, &comp, STBI_rgb_alpha);
-    
-    if(image == NULL) { //check if loaded
-        std::cout << "Unable to load image. Make sure the path is correct\n";
-        assert(false); // triggers an exception; no point in continuing program
-    }
-    
-    GLuint retTexture;
-    glGenTextures(1, &retTexture);
-    glBindTexture(GL_TEXTURE_2D, retTexture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    
-    stbi_image_free(image);
-    return retTexture;
-}
