@@ -27,6 +27,7 @@
 		918E516E2196B60B00DB3B3B /* PlatformerMap.txt in Resources */ = {isa = PBXBuildFile; fileRef = 918E516D2196B60A00DB3B3B /* PlatformerMap.txt */; };
 		918E51712196BADF00DB3B3B /* FlareMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 918E51702196BADE00DB3B3B /* FlareMap.cpp */; };
 		918E51732196BFBC00DB3B3B /* dirt-tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 918E51722196BFBB00DB3B3B /* dirt-tiles.png */; };
+		918E51752198FED900DB3B3B /* testmap2..txt in Resources */ = {isa = PBXBuildFile; fileRef = 918E51742198FED400DB3B3B /* testmap2..txt */; };
 		91B8A1CD2182F08A005AC665 /* trump2.png in Resources */ = {isa = PBXBuildFile; fileRef = 91B8A1CC2182F08A005AC665 /* trump2.png */; };
 		91B8A1CF218414F4005AC665 /* textsheet.png in Resources */ = {isa = PBXBuildFile; fileRef = 91B8A1CE218414F4005AC665 /* textsheet.png */; };
 		91B8A1D1218454C2005AC665 /* twitterlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 91B8A1D0218454C1005AC665 /* twitterlogo.png */; };
@@ -61,6 +62,7 @@
 		918E516F2196BADE00DB3B3B /* FlareMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlareMap.h; path = ../../../code/flare_map/FlareMap.h; sourceTree = "<group>"; };
 		918E51702196BADE00DB3B3B /* FlareMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlareMap.cpp; path = ../../../code/flare_map/FlareMap.cpp; sourceTree = "<group>"; };
 		918E51722196BFBB00DB3B3B /* dirt-tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dirt-tiles.png"; sourceTree = "<group>"; };
+		918E51742198FED400DB3B3B /* testmap2..txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testmap2..txt; sourceTree = "<group>"; };
 		91B8A1CC2182F08A005AC665 /* trump2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trump2.png; sourceTree = "<group>"; };
 		91B8A1CE218414F4005AC665 /* textsheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textsheet.png; sourceTree = "<group>"; };
 		91B8A1D0218454C1005AC665 /* twitterlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitterlogo.png; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				918E51702196BADE00DB3B3B /* FlareMap.cpp */,
 				918E516F2196BADE00DB3B3B /* FlareMap.h */,
+				918E51742198FED400DB3B3B /* testmap2..txt */,
 				918E51722196BFBB00DB3B3B /* dirt-tiles.png */,
 				918E516D2196B60A00DB3B3B /* PlatformerMap.txt */,
 				91B8A1D0218454C1005AC665 /* twitterlogo.png */,
@@ -228,6 +231,7 @@
 				916AD5DB218ECB7D00C2F98E /* tilesheet.png in Resources */,
 				91B8A1CD2182F08A005AC665 /* trump2.png in Resources */,
 				6D5A86BE19AE5C710066C1FD /* Credits.rtf in Resources */,
+				918E51752198FED900DB3B3B /* testmap2..txt in Resources */,
 				6DEF23C41B96CC2600BCE792 /* vertex.glsl in Resources */,
 				6DC7076A1BA7273500225B7D /* vertex_textured.glsl in Resources */,
 				918E51732196BFBC00DB3B3B /* dirt-tiles.png in Resources */,
