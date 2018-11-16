@@ -570,6 +570,20 @@ int main(int argc, char *argv[])
                 
             }
             
+            
+            
+//            for(int y=0; y < map.mapHeight; y++) {
+//                for(int x=0; x < map.mapWidth; x++) {
+//
+//                    if (map.mapData[y][x] != 0)
+//                        if ( y == playerGridLeftY && x == playerGridLeftX) {
+//                            rightCollision = true;
+//                            tilePenetrationLeft = playerLefttX - ((TILE_SIZE * x) + TILE_SIZE);
+//                            player.xPos -= tilePenetrationLeft + 0.005;
+//                            velocityY = 0;
+//                        }
+//                }
+//            }
         
             
         }
@@ -577,7 +591,8 @@ int main(int argc, char *argv[])
             velocityX = lerp(velocityX, 0.0f, elapsedTime * frictionX);
             velocityX += accelerationX * elapsedTime;
             player.xPos += velocityX * elapsedTime * 3.0;
-           
+            
+    
 
 //            for(int y=0; y < map.mapHeight; y++) {
 //                for(int x=0; x < map.mapWidth; x++) {
@@ -606,6 +621,18 @@ int main(int argc, char *argv[])
         //keep player on platform
         for(int y = 0; y < map.mapHeight; y++) {
             for(int x = 0; x < map.mapWidth; x++) {
+                
+            /* PLEASE READ
+
+            The sprite indexes are completely off (not just by 1 cause of the differences in the start index for our function and tiles -- way off) 
+            and I'm not sure why it's doing that but becasue I can't accuractly indicate which indices to look at for the collisions, they collision codes are
+            interfering with the bottom collision and the player gets sent upwards and diagnonal with a left or right collsion -- the code works but the mechanism
+            is off cause of the indices so I commented it out 
+
+            Also please note that I managed to get entities off of tile map, see the commented code above but because the indices are off, it's way
+            too many entities that are drawn with the wrong sprite so I opted to just manually placing one dynamic entity. It's called key cause I wanted it to be 
+            the key sprite but genuinly couldn't get the index that points to it.
+            */ 
                 
                 //                 if ( map.mapData[y][x] == 1  || map.mapData[y][x] == 2 || map.mapData[y][x] == 3 || map.mapData[y][x] == 16 || map.mapData[y][x] == 17 || map.mapData[y][x] == 18  ||   map.mapData[y][x] == 19 || map.mapData[y][x] == 36){
                 
