@@ -296,12 +296,12 @@ int main(int argc, char *argv[])
 
 
     float velocityX = 3.0f;
-    float velocityY = 5.0f;
+    float velocityY = 0.0f;
     float accelerationX = 2.0f;
-    float accelerationY = 2.0f;
+    float accelerationY = 2.5f;
     float frictionX = 0.7f;
     float frictionY = 0.7f;
-    float gravityY = - 10.0;
+    float gravityY = - 20.0;
     
     
     float playerWidth;
@@ -447,10 +447,9 @@ int main(int argc, char *argv[])
         
         velocityY = lerp(velocityY, 0.0f, elapsedTime * frictionY);
         velocityY += accelerationY * elapsedTime;
-        player.yPos += velocityY * elapsedTime ;
+        player.yPos += velocityY * elapsedTime;
 
         velocityY += gravityY * elapsedTime; //apply gravity -- constant acceleration
-
 
         /********
         //draw enemies
@@ -580,25 +579,25 @@ int main(int argc, char *argv[])
             player.xPos += velocityX * elapsedTime * 3.0;
            
 
-            for(int y=0; y < map.mapHeight; y++) {
-                for(int x=0; x < map.mapWidth; x++) {
-
-                    if (map.mapData[y][x] != 0)
-                        if ( y == playerGridRightY && x == playerGridRightX) {
-                            rightCollision = true;
-                            tilePenetrationRight = playerRightX - (TILE_SIZE * x);
-                            player.xPos -= tilePenetrationRight + 0.005;
-                            velocityY = 0;
-                        }
-                }
-            }
+//            for(int y=0; y < map.mapHeight; y++) {
+//                for(int x=0; x < map.mapWidth; x++) {
+//
+//                    if (map.mapData[y][x] != 0)
+//                        if ( y == playerGridRightY && x == playerGridRightX) {
+//                            rightCollision = true;
+//                            tilePenetrationRight = playerRightX - (TILE_SIZE * x);
+//                            player.xPos -= tilePenetrationRight + 0.005;
+//                            velocityY = 0;
+//                        }
+//                }
+//            }
 
             
             
         }
         if(keys[SDL_SCANCODE_SPACE]) {
             
-            player.yPos += elapsedTime * 3.0;
+            player.yPos += elapsedTime * 1.5;
         
         }
         
