@@ -1,1 +1,2 @@
-# CS-3113-Intro-to-Game-Programming
+# C++ & OpenGL for Game Development
+
